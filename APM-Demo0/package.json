@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng build --prod && cp ./dist/APM-Demo0/index.html ./dist/APM-Demo0/200.html && surge ./dist/APM-Demo0/ https://angular-ngrx.surge.sh"
   },
   "private": true,
   "dependencies": {
