@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SharedModule } from '../shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { SharedModule } from '../shared/shared.module';
 import { ProductShellComponent } from './product-shell/product-shell.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { productReducer } from './state/product.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './state/product.effects';
+
 
 const productRoutes: Routes = [
   { path: '', component: ProductShellComponent }
@@ -14,7 +20,12 @@ const productRoutes: Routes = [
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild(productRoutes)
+    RouterModule.forChild(productRoutes),
+    StoreModule.forFeature('products', productReducer),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
+    EffectsModule.forFeature([ProductEffects])
   ],
   declarations: [
     ProductShellComponent,
